@@ -1,17 +1,36 @@
+import { useState } from "react";
 import Card from "./components/Card";
+
 const App = () => {
-  const data = [{ name: 'Ada', profession: 'Painter', img: 'https://images.unsplash.com/photo-1630519047643-0b31f2540a1c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { name: 'Thomas', profession: 'Singer', img: 'https://images.unsplash.com/photo-1527735095040-147bffb4cede?q=80&w=1665&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { name: 'John', profession: 'Coder', img: 'https://images.unsplash.com/photo-1552320853-b14fa736e4c0?q=80&w=1664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-  { name: 'Raj', profession: 'Pilot', img: 'https://plus.unsplash.com/premium_photo-1661504402886-4a4fefe9dc99?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }]
+  const data = [
+
+    { name: "Thomas", profession: "Leader", img: "https://i1.sndcdn.com/artworks-3PH37YWBsts0toU7-domHbA-t500x500.jpg", freind: false },
+
+    { name: "John", profession: "Soldier", img: "https://i.pinimg.com/originals/1d/33/40/1d3340e95a406c42067f80f32388172d.jpg", freind: false },
+    { name: "Ada", profession: "Activist", img: "https://m.edna.cz/runtime/userfiles/series/peaky-blinders/Ada4-212b6a6fd00d625b3c1bb65c851f66c5.jpg", freind: false },
+    { name: "Arthur", profession: "Enforcer", img: "https://i.pinimg.com/564x/75/40/50/7540500d6367877068396c58644e02c7.jpg", freind: false },
+  ];
+
+  const [val, setVal] = useState(data);
+
+  // Modify friend state
+  const handleFriendsButton = (cardIndex) => {
+    setVal((previous) => {
+      return previous.map((item, index) => {
+        if (index === cardIndex) {
+          return { ...item, freind: !item.freind };
+        }
+        return item;
+      });
+    });
+  };
+
   return (
-   
-      <div className="w-full h-screen  bg-zinc-300 flex gap-4 items-center justify-center">
-        {data.map((item, i) => (
-          <Card key={i} name={item.name} profession={item.profession} img={item.img} />
-        ))}
-      </div>
-    
+    <div className="w-full h-screen bg-zinc-300 flex gap-4 items-center justify-center">
+      {val.map((item, i) => (
+        <Card key={i} func={handleFriendsButton} values={item} index={i} />
+      ))}
+    </div>
   );
 };
 export default App;
